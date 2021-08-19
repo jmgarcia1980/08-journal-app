@@ -12,12 +12,16 @@ export const startLoginEmPw = ( email, password )=>{
 }
 
 export const startGoogleLogin = () =>{
-    return() =>{
+    return( dispatch ) =>{
         
         firebase.auth().signInWithPopup(googleAuthProvider) //retorna unapromesa
-        .then( userCred => {
-            console.log(userCred );
+        .then( ({ user }) => {
+            // console.log(user);
+            dispatch(
+                login( user.uid, user.displayName )
+            )
         })
+        .catch('error...')
     }
 }
 
@@ -30,4 +34,3 @@ export const login = (uid, displayName) =>{
         }
     }
 }
-
